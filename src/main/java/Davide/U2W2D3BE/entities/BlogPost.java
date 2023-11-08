@@ -19,8 +19,7 @@ public class BlogPost {
     private String contenuto;
     private int tempoDiLettura;
     @ManyToOne()
-    @JoinColumn(name = "autore_id")
-    @NonNull
+    @JoinColumn(name = "autore_id", nullable = false)
     private Autore autore;
 
     @Override

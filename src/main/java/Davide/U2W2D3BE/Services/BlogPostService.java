@@ -26,7 +26,7 @@ public class BlogPostService {
         if (body.getAutore() == null) {
             throw new BadRequestException("Nessun Autore inserito");
         }else if (!autoreRepo.findById(body.getAutore().getId()).isPresent()) {
-            throw new NotFoundException("blogpost",body.getAutore().getId());
+            throw new NotFoundException("Autore",body.getAutore().getId());
         }else {
             blogPostRepo.save(body);
         }
