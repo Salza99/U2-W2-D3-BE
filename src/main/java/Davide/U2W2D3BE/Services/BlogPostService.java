@@ -2,6 +2,8 @@ package Davide.U2W2D3BE.Services;
 
 import Davide.U2W2D3BE.entities.BlogPost;
 import Davide.U2W2D3BE.exceptions.NotFoundException;
+import Davide.U2W2D3BE.repositories.BlogPostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,59 +12,30 @@ import java.util.Random;
 
 @Service
 public class BlogPostService {
-    private List<BlogPost> blogPosts= new ArrayList<>();
+    @Autowired
+    private BlogPostRepository blogPostRepo;
 
     public long save(BlogPost body){
-        Random random = new Random();
-        body.setId(random.nextInt(1, 1000));
-        this.blogPosts.add(body);
+        body.setCover("https://picsum.photos/200/300");
+        blogPostRepo.save(body);
         return body.getId();
     }
     public List<BlogPost> getAllBlogPost(){
-        return blogPosts;
+        return blogPostRepo.findAll();
     }
     public BlogPost getSingleBlogPost(long id){
-        BlogPost found = null;
-        for (BlogPost blogpost: this.blogPosts) {
-            if (blogpost.getId() == id){
-                 found = blogpost;
-            }
-        }
-        if (found != null) {
-            return found;
-        }else {
-            throw new NotFoundException(id);
-        }
+        return blogPostRepo.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
     public BlogPost updateABlogPost(long id, BlogPost body){
-        BlogPost found = null;
-        for (BlogPost blogpost: this.blogPosts) {
-            if (blogpost.getId() == id){
-                found = blogpost;
-                found.setCategoria(body.getCategoria());
-                found.setContenuto(body.getContenuto());
-                found.setTitolo(body.getTitolo());
-                found.setCover(body.getCover());
-                found.setTempoDiLettura(body.getTempoDiLettura());
-            }
-        }
-        if (found == null) {
-            throw new NotFoundException(id);
-        }else {
-            return found;
-        }
+        BlogPost found = blogPostRepo.findById(id).orElseThrow(()-> new NotFoundException(id));
+        found.setCategoria(body.getCategoria());
+        found.setContenuto(body.getContenuto());
+        found.setTitolo(body.getTitolo());
+        found.setTempoDiLettura(body.getTempoDiLettura());
+        blogPostRepo.save(found);
+        return found;
     }
     public void deleteABlogPost(long id) {
-        BlogPost found = null;
-        for (BlogPost blogpost: this.blogPosts) {
-            if (blogpost.getId() == id){
-                found = blogpost;
-            }
-        }
-        if (found == null) {
-            throw new NotFoundException(id);
-        }else {
-            this.blogPosts.remove(found);
-        }
+        blogPostRepo.deleteById(id);
     }
 }

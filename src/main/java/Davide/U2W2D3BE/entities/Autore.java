@@ -27,6 +27,7 @@ public class Autore {
     @CreationTimestamp
     private LocalDate createdAt;
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
