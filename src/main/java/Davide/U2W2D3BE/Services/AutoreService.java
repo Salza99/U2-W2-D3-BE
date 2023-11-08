@@ -27,10 +27,10 @@ public class AutoreService {
         return autoreRepo.findAll();
     }
     public Autore getSingleAutore(long id){
-        return autoreRepo.findById(id).orElseThrow(()-> new NotFoundException(id) );
+        return autoreRepo.findById(id).orElseThrow(()-> new NotFoundException("autore",id) );
     }
     public Autore updateAnAutore(long id, Autore body){
-        Autore found = autoreRepo.findById(id).orElseThrow(() -> new NotFoundException(id));
+        Autore found = autoreRepo.findById(id).orElseThrow(() -> new NotFoundException("autore",id));
         found.setNome(body.getNome());
         found.setCognome(body.getCognome());
         found.setEmail(body.getEmail());

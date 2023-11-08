@@ -3,6 +3,7 @@ package Davide.U2W2D3BE.Controller;
 import Davide.U2W2D3BE.Services.BlogPostService;
 import Davide.U2W2D3BE.entities.BlogPost;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,9 @@ public class BlogPostController {
          return blogPostService.save(body);
     }
     @GetMapping("")
-    public List<BlogPost> getAll(){
-        return blogPostService.getAllBlogPost();
+    public Page<BlogPost> getBlogPosts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "id") String order){
+
+        return blogPostService.getAllBlogPost(page, size, order);
     }
     @GetMapping("/{id}")
     public BlogPost findBlogPostById(@PathVariable long id){
