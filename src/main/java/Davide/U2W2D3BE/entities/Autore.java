@@ -1,15 +1,13 @@
 package Davide.U2W2D3BE.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,7 +24,8 @@ public class Autore {
     private String avatar;
     @CreationTimestamp
     private LocalDate createdAt;
-
+    @OneToMany()
+    private List<BlogPost> blogPosts;
 
     @Override
     public boolean equals(Object o) {

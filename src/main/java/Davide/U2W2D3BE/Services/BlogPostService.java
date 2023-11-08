@@ -1,7 +1,9 @@
 package Davide.U2W2D3BE.Services;
 
+import Davide.U2W2D3BE.entities.Autore;
 import Davide.U2W2D3BE.entities.BlogPost;
 import Davide.U2W2D3BE.exceptions.NotFoundException;
+import Davide.U2W2D3BE.repositories.AutoreRepository;
 import Davide.U2W2D3BE.repositories.BlogPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,8 @@ import java.util.Random;
 public class BlogPostService {
     @Autowired
     private BlogPostRepository blogPostRepo;
+    @Autowired
+    private AutoreRepository autoreRepo;
 
     public long save(BlogPost body){
         body.setCover("https://picsum.photos/200/300");

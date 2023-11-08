@@ -1,11 +1,10 @@
 package Davide.U2W2D3BE.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -19,6 +18,10 @@ public class BlogPost {
     private String cover;
     private String contenuto;
     private int tempoDiLettura;
+    @ManyToOne()
+    @JoinColumn(name = "autore_id")
+    @NonNull
+    private Autore autore;
 
     @Override
     public boolean equals(Object o) {
