@@ -34,6 +34,7 @@ public class AutoreService {
         found.setEmail(body.getEmail());
         found.setDataDiNascita(body.getDataDiNascita());
         found.setAvatar("https://ui-avatars.com/api/?name=" + body.getNome() + "+" + body.getCognome());
+        autoreRepo.save(found);
         return found;
     }
     public void deleteAnAutore(long id){
